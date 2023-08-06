@@ -12,11 +12,14 @@ import java.util.List;
 import java.util.Random;
 
 public class Array_Data_Gen {
+
+    // This code helps to generate array data type data for testing
     static  int i;
         public static void main(String[] args) {
 
             JSONArray jsonArray = new JSONArray();
 
+            //Here please copy and paste the IDs file path from which you want IDs to be fetched and be part of Array data
             List<String> adIds = readAdIdsFromCSV("/Users/shubham/Downloads/ADID_Csv.csv");
             if (adIds.isEmpty()) {
                 System.err.println("No AdIds found in the CSV file.");
@@ -34,13 +37,9 @@ public class Array_Data_Gen {
         private static JSONObject createSampleJsonObject(List<String> adIds) {
             JSONObject jsonObject = new JSONObject();
 
-            // Generate random AdId from the list
-            //String adId = getRandomAdId(adIds);
             int j;
             for (j=0; j<i; j++) {
                 String ad = adIds.get(j);
-                //System.out.println(ad);
-
                 jsonObject.put("name", ad);
             }
                 // Generate random age between 20 and 30 (inclusive)
@@ -48,7 +47,7 @@ public class Array_Data_Gen {
                 jsonObject.put("age", age);
                 jsonObject.put("isConsent", getRandomBoolean());
 
-                // Add an array of values (Transcations)
+                // Add an array of values (Transcations) [Data Type - Double]
                 JSONArray transcations = new JSONArray();
                 transcations.put(5000.55);
                 transcations.put(10000.00);
@@ -56,7 +55,7 @@ public class Array_Data_Gen {
                 transcations.put(17000);
                 jsonObject.put("Transcations", transcations);
 
-                // Add an array of values (Banks)
+                // Add an array of values (Banks) [Data Type - String]
                 JSONArray banks = new JSONArray();
                 banks.put("HDFC");
                 banks.put("ICICI");
@@ -64,7 +63,7 @@ public class Array_Data_Gen {
                 banks.put("Axis");
                 jsonObject.put("Banks", banks);
 
-                // Add an array of values (Credit)
+                // Add an array of values (Credit) [Data Type - Integer]
                 JSONArray credit = new JSONArray();
                 credit.put(25000);
                 credit.put(35000);
@@ -99,7 +98,7 @@ public class Array_Data_Gen {
                 CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(new FileReader(filePath));
 
                 for (CSVRecord record : parser) {
-                    String adId = record.get("AdId"); // Change "AdId" to the column header for AdIds
+                    String adId = record.get("AdId"); // Change "AdId" to the column header for IDs
                     adIds.add(adId);
                 }
             } catch (IOException e) {

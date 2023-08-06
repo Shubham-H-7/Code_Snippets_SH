@@ -5,15 +5,15 @@ public class NamesGen {
         public static void main(String[] args) {
             int N = 75; // Change this value to generate names N times
 
-            String[] europeanMaleNames = {
+            String[] europeanMaleNames = { // Add required names from which to be picked
                     "Andersen", "Bianchi", "Carlsen", "Dijkstra", "Eriksson", "Faber", "Gomes", "Hansen", "Ionescu", "Jansen",
                     "Kovalenko", "Lehmann", "Muller", "Novak", "Donnell", "Petrović", "Rossi", "Schmidt", "Toth", "Van der Berg",
-                    /* Add more last names here */
+                    /* Add more names here */
             };
 
             Random random = new Random();
 
-            System.out.println("Generated European Male Names:");
+            System.out.println("Generated Names:");
 
             for (int i = 0; i < N; i++) {
                 int randomIndex = random.nextInt(europeanMaleNames.length);

@@ -20,7 +20,7 @@ public class Convert_To_JSON_Single_Line {
                 return;
             }
 
-            // Use Jackson ObjectMapper to read and write JSON
+            // Use ObjectMapper to read and write JSON
             ObjectMapper objectMapper = new ObjectMapper();
 
             try {
