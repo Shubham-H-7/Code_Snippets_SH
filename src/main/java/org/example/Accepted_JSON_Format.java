@@ -5,6 +5,7 @@ import java.io.*;
 public class Accepted_JSON_Format {
     private static final Object JSON = null ;
 
+    // This code helps to convert single line JSON formatted code from previous snippets to Collect accepted json format
     public static void main(String[] args) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("/Users/shubham/Downloads/one_line.json"));
