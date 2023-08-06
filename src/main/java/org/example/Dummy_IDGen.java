@@ -14,7 +14,7 @@ public class Dummy_IDGen {
                 private static String generateRandomString() {
                     StringBuilder sb = new StringBuilder();
 
-                    // Define the groups of characters in the format
+                    // Define the groups of characters in the format, you have any type here xx-xxx-xxx, x-xx-xxx-xx
                     String[] groups = {"xxxxxxxxxxxxxxx"};
 
                     Random random = new Random();
@@ -23,10 +23,10 @@ public class Dummy_IDGen {
                         for (int i = 0; i < group.length(); i++) {
                             char randomChar;
                             if (group.charAt(i) == 'x') {
-                                // Append a random hexadecimal character (0-9, a-f)
+                                // Append a random hexadecimal character (0-9, a-f), you can change this according to the requirement
                                 randomChar = (char) (random.nextInt(6) + (random.nextBoolean() ? 'a' : '0'));
                             } else {
-                                // Append the hyphen
+                                // Append the hyphen, you can change this according to the requirement [@,/,|,ect]
                                 randomChar = '-';
                             }
                             sb.append(randomChar);
