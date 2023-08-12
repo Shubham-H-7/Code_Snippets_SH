@@ -31,6 +31,4 @@ public class Accepted_JSON_Format {
             e.printStackTrace();
         }
     }
-
-
 }
