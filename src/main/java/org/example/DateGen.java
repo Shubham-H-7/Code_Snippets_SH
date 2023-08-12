@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateGen {
+        // This code helps in generating between certain range of dates
         public static void main(String[] args) throws ParseException {
             String startDateStr = "01/01/1996"; // Start date in dd/MM/yyyy format
             String endDateStr = "01/11/1997";   // End date in dd/MM/yyyy format

@@ -5,7 +5,7 @@ public class DigitsGen {
 
             int N = 150; // Change this value to generate N random numbers
 
-            int numberOfDigits = 10;
+            int numberOfDigits = 10; // Change this value to the no of digits you want your number should have
             long minNumber = (long) Math.pow(10, numberOfDigits - 1);
             long maxNumber = (long) Math.pow(10, numberOfDigits) - 1;
 
