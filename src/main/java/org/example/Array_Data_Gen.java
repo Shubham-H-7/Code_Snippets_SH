@@ -20,12 +20,12 @@ public class Array_Data_Gen {
             JSONArray jsonArray = new JSONArray();
 
             //Here please copy and paste the IDs file path from which you want IDs to be fetched and be part of Array data
-            List<String> adIds = readAdIdsFromCSV("/Users/shubham/Downloads/ADID_Csv.csv");
+            List<String> adIds = readAdIdsFromCSV("/Users/shubham/Downloads/1000_AdId_IDs.csv");
             if (adIds.isEmpty()) {
                 System.err.println("No AdIds found in the CSV file.");
                 return;
             }
-            for (i = 1; i < 200; i++)
+            for (i = 1; i < 100; i++)
             {
                 JSONObject jsonObject = createSampleJsonObject(adIds);
                 jsonArray.put(jsonObject);
@@ -39,39 +39,37 @@ public class Array_Data_Gen {
 
             int j;
             for (j=0; j<i; j++) {
-                String ad = adIds.get(j);
-                jsonObject.put("name", ad);
+                String adId = adIds.get(j);
+                jsonObject.put("ID", adId);
             }
                 // Generate random age between 20 and 30 (inclusive)
-                int age = generateRandomAge(20, 30);
+                int age = generateRandomAge(20, 25);
                 jsonObject.put("age", age);
-                jsonObject.put("isConsent", getRandomBoolean());
+                jsonObject.put("isConsent", generateRandomYesNo());
 
                 // Add an array of values (Transcations) [Data Type - Double]
                 JSONArray transcations = new JSONArray();
                 transcations.put(5000.55);
                 transcations.put(10000.00);
-                transcations.put(20000);
-                transcations.put(17000);
+                transcations.put(20000.99);
                 jsonObject.put("Transcations", transcations);
 
                 // Add an array of values (Banks) [Data Type - String]
                 JSONArray banks = new JSONArray();
                 banks.put("HDFC");
                 banks.put("ICICI");
-                banks.put("SBI");
-                banks.put("Axis");
                 jsonObject.put("Banks", banks);
 
                 // Add an array of values (Credit) [Data Type - Integer]
                 JSONArray credit = new JSONArray();
-                credit.put(25000);
-                credit.put(35000);
-                credit.put(50000);
-                credit.put(65000);
-                credit.put(75000);
+                credit.put(5000);
+                credit.put(5500);
+                credit.put(6000);
+                credit.put(6500);
                 jsonObject.put("credited", credit);
 
+            long timestamp = generateRandomTimestamp(1691749587, 1692585096); // Example date range: 11 August 2023 to  21 August 2023
+            jsonObject.put("timestamp", timestamp);
 
             return jsonObject;
         }
@@ -81,15 +79,21 @@ public class Array_Data_Gen {
             return random.nextInt(max - min + 1) + min;
         }
 
-        private static String getRandomAdId(List<String> adIds) {
-            Random random = new Random();
-            return adIds.get(random.nextInt(adIds.size()));
-        }
-
         private static boolean getRandomBoolean() {
             Random random = new Random();
             return random.nextBoolean();
         }
+        private static String generateRandomYesNo() {
+        String[] options = {"yes", "no"};
+        Random random = new Random();
+        int randomIndex = random.nextInt(options.length);
+        return options[randomIndex];
+    }
+    private static long generateRandomTimestamp(long min, long max) {
+        Random random = new Random();
+        long randomTimestamp = random.nextLong() % (max - min) + min;
+        return randomTimestamp;
+    }
 
         private static List<String> readAdIdsFromCSV(String filePath) {
             List<String> adIds = new ArrayList<>();
@@ -108,7 +112,3 @@ public class Array_Data_Gen {
             return adIds;
         }
     }
-
-
-
-
