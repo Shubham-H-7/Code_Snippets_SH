@@ -3,7 +3,7 @@ package org.example;
 import java.io.*;
 
 public class Accepted_JSON_Format {
-    private static final Object JSON = null ;
+    private static final Object JSON = null;
 
     public static void main(String[] args) {
         try {
@@ -15,7 +15,7 @@ public class Accepted_JSON_Format {
                 while (line != null) {
                     String[] objects = line.split("(?<=\\})&&(?<=\\,)|(?=\\{)");
                     for (String object : objects) {
-                       writer.write(object.trim());
+                        writer.write(object.trim());
                         writer.newLine();
                     }
                     line = reader.readLine();
@@ -30,6 +30,4 @@ public class Accepted_JSON_Format {
             e.printStackTrace();
         }
     }
-
-
 }
