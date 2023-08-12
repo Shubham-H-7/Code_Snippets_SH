@@ -4,6 +4,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.io.*;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,6 +17,8 @@ public class Array_Data_Gen {
     // This code helps to generate array data type data for testing
     static  int i;
         public static void main(String[] args) {
+
+
 
             JSONArray jsonArray = new JSONArray();
 
@@ -34,6 +37,7 @@ public class Array_Data_Gen {
             System.out.println(jsonArray.toString(4)); // Printing JSON with indentation of 4 spaces
         }
 
+
         private static JSONObject createSampleJsonObject(List<String> adIds) {
             JSONObject jsonObject = new JSONObject();
 
@@ -43,32 +47,37 @@ public class Array_Data_Gen {
                 jsonObject.put("ID", adId);
             }
                 // Generate random age between 20 and 30 (inclusive)
-                int age = generateRandomAge(20, 25);
+                int age = generateRandomAge(30, 35);
                 jsonObject.put("age", age);
                 jsonObject.put("isConsent", generateRandomYesNo());
+                jsonObject.put("isMarketingPreference", generateRandomYesNo() );
 
                 // Add an array of values (Transcations) [Data Type - Double]
                 JSONArray transcations = new JSONArray();
-                transcations.put(5000.55);
-                transcations.put(10000.00);
-                transcations.put(20000.99);
+                transcations.put(95000.00);
+                transcations.put(97000.01);
+                transcations.put(99000.90);
+                transcations.put(93000.45);
+                transcations.put(94000);
                 jsonObject.put("Transcations", transcations);
 
                 // Add an array of values (Banks) [Data Type - String]
                 JSONArray banks = new JSONArray();
-                banks.put("HDFC");
-                banks.put("ICICI");
+                banks.put("JPMorgan");
+                banks.put("BAC");
+                banks.put("Wells Fargo");
                 jsonObject.put("Banks", banks);
 
                 // Add an array of values (Credit) [Data Type - Integer]
                 JSONArray credit = new JSONArray();
-                credit.put(5000);
-                credit.put(5500);
-                credit.put(6000);
-                credit.put(6500);
+                credit.put(9000);
+                credit.put(9500);
+                credit.put(9999);
+                credit.put(94500);
+
                 jsonObject.put("credited", credit);
 
-            long timestamp = generateRandomTimestamp(1691749587, 1692585096); // Example date range: 11 August 2023 to  21 August 2023
+            long timestamp = generateRandomTimestamp(1688196888, 1690702488); // Example date range: 11 August 2023 to  21 August 2023
             jsonObject.put("timestamp", timestamp);
 
             return jsonObject;
