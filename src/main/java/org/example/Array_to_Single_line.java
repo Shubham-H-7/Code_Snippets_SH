@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Array_to_Single_line {
 
         public static void main(String[] args) {
-            String inputFilePath = "/Users/shubham/Downloads/new_array_data.json"; // Replace witweh your input JSON file path
+            String inputFilePath = "/Users/shubham/Downloads/new_array_data.json"; // Replace with your input JSON file path
             String outputFilePath = "/Users/shubham/Downloads/final_array_data.json"; // Replace with your output JSON file path
 
             try {
