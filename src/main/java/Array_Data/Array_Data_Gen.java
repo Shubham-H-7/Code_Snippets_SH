@@ -1,4 +1,5 @@
 package Array_Data;
+
 import org.apache.commons.csv.*;
 import org.json.*;
 import java.io.*;
@@ -8,23 +9,53 @@ public class Array_Data_Gen {
 
     // This code helps to generate array data type data for testing
     static int i;
+    static int ageStart;
+    static int ageEnd;
+    static int N;
+    static String filePathID;
+    static String idFileHeaderName;
+    static String filePathDataPhase1;
+    static long timeStart;
+    static long timeEnd;
+
+    static {
+        loadConfig();
+    }
+
+    private static void loadConfig(){
+        Properties properties= new Properties();
+        try(FileInputStream input= new FileInputStream("/Users/shubham/IdeaProjects/Code_Snippets_SH/src/main/java/Array_Data/config.properties")){
+            properties.load(input);
+            ageStart = Integer.parseInt(properties.getProperty("age.start"));
+            ageEnd = Integer.parseInt(properties.getProperty("age.end"));
+            N = Integer.parseInt(properties.getProperty("n"));
+            filePathID = properties.getProperty("file.path.id");
+            idFileHeaderName = properties.getProperty("id.file.header.name");
+            filePathDataPhase1 = properties.getProperty("file.path.data.phase1");
+            timeStart = Long.parseLong(properties.getProperty("time.start"));
+            timeEnd = Long.parseLong(properties.getProperty("time.end"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) throws IOException {
+
         JSONArray jsonArray = new JSONArray();
 
-        //Here please copy and paste the IDs file path from which you want IDs to be fetched and be part of Array data
-        List<String> adIds = readAdIdsFromCSV("/Users/shubham/Downloads/1000_AdId_IDs.csv");
-        if (adIds.isEmpty()) {
-            System.err.println("No AdIds found in the CSV file.");
+        List<String> Ids = readIdsFromCSV(filePathID);
+        if (Ids.isEmpty()) {
+            System.err.println("No Ids found in the CSV file.");
             return;
         }
-        for (i = 1; i < 5; i++) { // i<n; replace n with the number of records you want array data
-            JSONObject jsonObject = createSampleJsonObject(adIds);
+        for (i = 1; i < N; i++) {
+            JSONObject jsonObject = createSampleJsonObject(Ids);
             jsonArray.put(jsonObject);
         }
 
         String formattedJsonArray = jsonArray.toString(4); // Storing JSON with indentation of 4 spaces
-        String filepath = "/Users/shubham/Downloads/Array_Gen_Data_File.json";
+        String filepath = filePathDataPhase1;
         try (BufferedWriter wrt= new BufferedWriter(new FileWriter(filepath))){
             wrt.write(formattedJsonArray);
         }
@@ -33,16 +64,16 @@ public class Array_Data_Gen {
         }
     }
 
-    private static JSONObject createSampleJsonObject(List<String> adIds) {
+    private static JSONObject createSampleJsonObject(List<String> Ids) {
         JSONObject jsonObject = new JSONObject();
 
         int j;
         for (j = 0; j < i; j++) {
-            String adId = adIds.get(j);
-            jsonObject.put("ID", adId);
+            String Id = Ids.get(j);
+            jsonObject.put("ID", Id);
         }
         // Generate random age between 20 and 30 (inclusive)
-        int age = generateRandomAge(30, 35);
+        int age = generateRandomAge( ageStart, ageEnd);
         jsonObject.put("age", age);
         jsonObject.put("isConsent", generateRandomYesNo());
         jsonObject.put("isMarketingPreference", generateRandomYesNo());
@@ -66,7 +97,7 @@ public class Array_Data_Gen {
 
         jsonObject.put("credited", credit);
 
-        long timestamp = generateRandomTimestamp(1688196888, 1690702488); // Example date range: 11 August 2023 to  21 August 2023
+        long timestamp = generateRandomTimestamp(timeStart, timeEnd); // Example date range: 11 August 2023 to  21 August 2023
         jsonObject.put("timestamp", timestamp);
 
         return jsonObject;
@@ -95,20 +126,20 @@ public class Array_Data_Gen {
         return randomTimestamp;
     }
 
-    private static List<String> readAdIdsFromCSV(String filePath) {
-        List<String> adIds = new ArrayList<>();
+    private static List<String> readIdsFromCSV(String filePathID) {
+        List<String> Ids = new ArrayList<>();
 
         try {
-            CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(new FileReader(filePath));
+            CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(new FileReader(filePathID));
 
             for (CSVRecord record : parser) {
-                String adId = record.get("AdId"); // Change "AdId" to the column header for IDs
-                adIds.add(adId);
+                String Id = record.get(idFileHeaderName); // Change "AdId" to the column header for IDs
+                Ids.add(Id);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return adIds;
+        return Ids;
     }
 }
