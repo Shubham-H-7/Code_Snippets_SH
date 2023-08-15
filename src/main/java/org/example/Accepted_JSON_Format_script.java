@@ -19,13 +19,21 @@ public class Accepted_JSON_Format_script {
     }
 
     private static String readJSONStringFromFile(String filePath) throws IOException {
+        StringBuilder jsonString = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            StringBuilder jsonString = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 jsonString.append(line);
             }
-            return jsonString.toString();
+            String rawJson = jsonString.toString().trim();
+
+            if (rawJson.startsWith("[") && rawJson.endsWith("]")) {
+                rawJson = rawJson.substring(1, rawJson.length() - 1);
+            }
+
+            rawJson = rawJson.replace("},", "}");
+
+            return rawJson;
         }
     }
 
@@ -36,14 +44,16 @@ public class Accepted_JSON_Format_script {
     }
 
     private static void formatJSON(String outputFilePath) {
+        String []  objects;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(outputFilePath));
             BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/shubham/Downloads/Final_Array_Data.json"));
+
             String line;
             try {
                 line = reader.readLine();
                 while (line != null) {
-                    String[] objects = line.split("(?<=\\})|(?=\\{)");
+                   objects = line.split("(?<=\\})|(?=\\{)");
                     for (String object : objects) {
                         writer.write(object.trim());
                         writer.newLine();
@@ -53,6 +63,7 @@ public class Accepted_JSON_Format_script {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             reader.close();
             writer.close();
             System.out.println("JSON objects separated and written to output.json");
