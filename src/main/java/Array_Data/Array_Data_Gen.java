@@ -18,7 +18,7 @@ public class Array_Data_Gen {
             System.err.println("No AdIds found in the CSV file.");
             return;
         }
-        for (i = 1; i < 5; i++) {
+        for (i = 1; i < 5; i++) { // i<n; replace n with the number of records you want array data
             JSONObject jsonObject = createSampleJsonObject(adIds);
             jsonArray.put(jsonObject);
         }
