@@ -15,7 +15,7 @@ public class Dummy_IDGen {
                     StringBuilder sb = new StringBuilder();
 
                     // Define the groups of characters in the format, you have any type here xx-xxx-xxx, x-xx-xxx-xx
-                    String[] groups = {"xxxxxxxxxxxxxxx"};
+                    String[] groups = {"xxx-xxx-xxxxxxxxx"};
 
                     Random random = new Random();
 

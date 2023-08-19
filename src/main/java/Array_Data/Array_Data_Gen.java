@@ -2,6 +2,8 @@ package Array_Data;
 
 import org.apache.commons.csv.*;
 import org.json.*;
+
+import javax.swing.text.SimpleAttributeSet;
 import java.io.*;
 import java.util.*;
 
@@ -17,12 +19,20 @@ public class Array_Data_Gen {
     static String filePathDataPhase1;
     static long timeStart;
     static long timeEnd;
+    static JSONArray arrayvalueC1 = new JSONArray();
+    static  JSONArray arrayvalueC2 = new JSONArray();
+    static  JSONArray arrayvalueC3 = new JSONArray();
+    static  String Column1Header;
+    static  String  Column2Header;
+    static  String Column3Header;
+
 
     static {
         loadConfig();
     }
 
     private static void loadConfig(){
+
         Properties properties= new Properties();
         try(FileInputStream input= new FileInputStream("/Users/shubham/IdeaProjects/Code_Snippets_SH/src/main/java/Array_Data/config.properties")){
             properties.load(input);
@@ -34,6 +44,32 @@ public class Array_Data_Gen {
             filePathDataPhase1 = properties.getProperty("file.path.data.phase1");
             timeStart = Long.parseLong(properties.getProperty("time.start"));
             timeEnd = Long.parseLong(properties.getProperty("time.end"));
+            //Column1 Calling
+            Column1Header = properties.getProperty("Column1Header");
+            for (int i= 1; i <= 2; i++ ){
+                String arrayvalues = properties.getProperty("Column1value" + i);
+                if(arrayvalues != null){
+                    arrayvalueC1.put(arrayvalues);
+                }
+            }
+            //Column2 Calling
+            Column2Header = properties.getProperty("Column2Header");
+           for (int j=1; j<=2; j++){
+               String stringvalues = properties.getProperty("Column2value" + j);
+               if (stringvalues != null){
+                   double doublevalues = Double.parseDouble(stringvalues);
+                   arrayvalueC2.put(doublevalues);
+               }
+           }
+           //Column3 calling
+            Column3Header = properties.getProperty("Column3Header");
+           for (int k=1; k<=2; k++){
+               String stringvalues = properties.getProperty("Column3value" + k);
+               if (stringvalues != null){
+                   double intvalues = Double.parseDouble(stringvalues);
+                   arrayvalueC3.put(intvalues);
+               }
+           }
         }
         catch (Exception e){
             e.printStackTrace();
@@ -79,23 +115,13 @@ public class Array_Data_Gen {
         jsonObject.put("isMarketingPreference", generateRandomYesNo());
 
         // Add an array of values (Transcations) [Data Type - Double]
-        JSONArray transcations = new JSONArray();
-        transcations.put(95000.00);
-        transcations.put(97000.01);
-        jsonObject.put("Transcations", transcations);
+        jsonObject.put(Column2Header, arrayvalueC2);
 
         // Add an array of values (Banks) [Data Type - String]
-        JSONArray banks = new JSONArray();
-        banks.put("JPMorgan");
-        banks.put("Wells Fargo");
-        jsonObject.put("Banks", banks);
+        jsonObject.put(Column1Header, arrayvalueC1);
 
         // Add an array of values (Credit) [Data Type - Integer]
-        JSONArray credit = new JSONArray();
-        credit.put(9000);
-        credit.put(9500);
-
-        jsonObject.put("credited", credit);
+        jsonObject.put(Column3Header, arrayvalueC3);
 
         long timestamp = generateRandomTimestamp(timeStart, timeEnd); // Example date range: 11 August 2023 to  21 August 2023
         jsonObject.put("timestamp", timestamp);
