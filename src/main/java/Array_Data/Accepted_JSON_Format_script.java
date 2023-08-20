@@ -1,11 +1,32 @@
 package Array_Data;
 
 import java.io.*;
+import java.util.Properties;
 
 public class Accepted_JSON_Format_script {
+    static String filepath1;
+    static String filepath3;
+    static {
+        loadConfig();
+    }
+    private static void loadConfig(){
+        Properties properties= new Properties();
+        try(FileInputStream input= new FileInputStream("/Users/shubham/IdeaProjects/Code_Snippets_SH/src/main/java/Array_Data/config.properties")) {
+            properties.load(input);
+            filepath1 = properties.getProperty("filepath1");
+            filepath3 = properties.getProperty("filepath3");
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
-        String inputFilePath = "/Users/shubham/Downloads/Array_Gen_Data_File.json";   // Replace with your input JSON file path
-        String outputFilePath = "/Users/shubham/Downloads/Single_line_convert.json"; // Replace with your output JSON file path
+       finalMethod();
+    }
+    static  void finalMethod(){
+        String inputFilePath = "/Users/shubham/Downloads/filepath1.json";   // Replace with your input JSON file path
+        String outputFilePath = "/Users/shubham/Downloads/filepath2.json"; // Replace with your output JSON file path
 
         try {
             String jsonString = readJSONStringFromFile(inputFilePath);
@@ -16,11 +37,12 @@ public class Accepted_JSON_Format_script {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    private static String readJSONStringFromFile(String filePath) throws IOException {
+    private static String readJSONStringFromFile(String filepath2) throws IOException {
         StringBuilder jsonString = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filepath2))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 jsonString.append(line);
@@ -47,7 +69,7 @@ public class Accepted_JSON_Format_script {
         String []  objects;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(outputFilePath));
-            BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/shubham/Downloads/Final_Array_Data.json"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filepath3));
 
             String line;
             try {

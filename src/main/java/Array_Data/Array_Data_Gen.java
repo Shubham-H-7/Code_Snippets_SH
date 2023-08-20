@@ -16,7 +16,7 @@ public class Array_Data_Gen {
     static int N;
     static String filePathID;
     static String idFileHeaderName;
-    static String filePathDataPhase1;
+    static String filePath1;
     static long timeStart;
     static long timeEnd;
     static JSONArray arrayvalueC1 = new JSONArray();
@@ -41,12 +41,12 @@ public class Array_Data_Gen {
             N = Integer.parseInt(properties.getProperty("n"));
             filePathID = properties.getProperty("file.path.id");
             idFileHeaderName = properties.getProperty("id.file.header.name");
-            filePathDataPhase1 = properties.getProperty("file.path.data.phase1");
+            filePath1 = properties.getProperty("filepath1");
             timeStart = Long.parseLong(properties.getProperty("time.start"));
             timeEnd = Long.parseLong(properties.getProperty("time.end"));
             //Column1 Calling
             Column1Header = properties.getProperty("Column1Header");
-            for (int i= 1; i <= 2; i++ ){
+            for (int i= 1; i <= N; i++ ){
                 String arrayvalues = properties.getProperty("Column1value" + i);
                 if(arrayvalues != null){
                     arrayvalueC1.put(arrayvalues);
@@ -54,7 +54,7 @@ public class Array_Data_Gen {
             }
             //Column2 Calling
             Column2Header = properties.getProperty("Column2Header");
-           for (int j=1; j<=2; j++){
+           for (int j=1; j<=N; j++){
                String stringvalues = properties.getProperty("Column2value" + j);
                if (stringvalues != null){
                    double doublevalues = Double.parseDouble(stringvalues);
@@ -63,7 +63,7 @@ public class Array_Data_Gen {
            }
            //Column3 calling
             Column3Header = properties.getProperty("Column3Header");
-           for (int k=1; k<=2; k++){
+           for (int k=1; k<=N; k++){
                String stringvalues = properties.getProperty("Column3value" + k);
                if (stringvalues != null){
                    double intvalues = Double.parseDouble(stringvalues);
@@ -91,14 +91,16 @@ public class Array_Data_Gen {
         }
 
         String formattedJsonArray = jsonArray.toString(4); // Storing JSON with indentation of 4 spaces
-        String filepath = filePathDataPhase1;
+        String filepath = filePath1;
         try (BufferedWriter wrt= new BufferedWriter(new FileWriter(filepath))){
             wrt.write(formattedJsonArray);
         }
         catch (Exception e1){
             e1.printStackTrace();
         }
+        Accepted_JSON_Format_script.finalMethod();
     }
+
 
     private static JSONObject createSampleJsonObject(List<String> Ids) {
         JSONObject jsonObject = new JSONObject();
