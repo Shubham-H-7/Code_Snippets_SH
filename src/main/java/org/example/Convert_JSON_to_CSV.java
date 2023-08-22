@@ -13,7 +13,7 @@ public class Convert_JSON_to_CSV {
         public static void main(String[] args) {
 
             // Replace "your_input_file.json" with the path to your JSON file
-            String jsonFilePath = "/Users/shubham/Downloads/JSON_Array_of_values.json";
+            String jsonFilePath = "/Users/shubham/Downloads/filepath1.json";
 
             // Replace "output.csv" with the desired path for the CSV output file
             String csvOutputFilePath = "/Users/shubham/Documents/CSv_JSON/csv_json1.csv";
@@ -36,8 +36,27 @@ public class Convert_JSON_to_CSV {
         File csvOutputFile = new File(csvOutputFilePath);
         FileUtils.writeStringToFile(csvOutputFile, "", "UTF-8", false); // Clear the file if it exists
 
+        JsonNode firstElement = root.elements().next();
+        writeCsvHeaders(firstElement, csvOutputFile);
         // Process JSON and write to CSV
         writeJsonToCsv(root, csvOutputFile);
+    }
+    private static void writeCsvHeaders(JsonNode node, File csvOutputFile) throws IOException {
+        StringBuilder csvLine = new StringBuilder();
+        Iterator<String> fieldNames = node.fieldNames();
+
+        while (fieldNames.hasNext()) {
+            String fieldName = fieldNames.next();
+
+            if (csvLine.length() > 0) {
+                csvLine.append(",");
+            }
+
+            csvLine.append("\"").append(fieldName).append("\"");
+        }
+
+        csvLine.append("\n");
+        FileUtils.writeStringToFile(csvOutputFile, csvLine.toString(), "UTF-8", true);
     }
 
     private static void writeJsonToCsv(JsonNode node, File csvOutputFile) throws IOException {
