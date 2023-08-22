@@ -28,13 +28,22 @@ public class Array_Data_Gen {
 
 
     static {
-        loadConfig();
+        try {
+            loadConfig();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private static void loadConfig(){
+    private static void loadConfig() throws FileNotFoundException {
 
         Properties properties= new Properties();
-        try(FileInputStream input= new FileInputStream("/Users/shubham/IdeaProjects/Code_Snippets_SH/src/main/java/Array_Data/config.properties")){
+        String workingDir = System.getProperty("user.dir");
+        // Create a path to the config.properties file using the relative path
+        String configPath = workingDir + "/src/main/java/Array_Data/config.properties";
+        // Create a FileInputStream using the computed path
+        FileInputStream input = new FileInputStream(configPath);
+        try{
             properties.load(input);
             ageStart = Integer.parseInt(properties.getProperty("age.start"));
             ageEnd = Integer.parseInt(properties.getProperty("age.end"));
