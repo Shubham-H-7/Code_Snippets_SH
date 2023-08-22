@@ -6,6 +6,7 @@ import java.util.Properties;
 public class Accepted_JSON_Format_script {
     static String filepath1;
     static String filepath3;
+    static  String filepath2;
     static {
         loadConfig();
     }
@@ -14,6 +15,7 @@ public class Accepted_JSON_Format_script {
         try(FileInputStream input= new FileInputStream("/Users/shubham/IdeaProjects/Code_Snippets_SH/src/main/java/Array_Data/config.properties")) {
             properties.load(input);
             filepath1 = properties.getProperty("filepath1");
+            filepath2 = properties.getProperty("filepath2");
             filepath3 = properties.getProperty("filepath3");
 
         }
@@ -25,8 +27,8 @@ public class Accepted_JSON_Format_script {
        finalMethod();
     }
     static  void finalMethod(){
-        String inputFilePath = "/Users/shubham/Downloads/filepath1.json";   // Replace with your input JSON file path
-        String outputFilePath = "/Users/shubham/Downloads/filepath2.json"; // Replace with your output JSON file path
+        String inputFilePath = filepath1;   // Replace with your input JSON file path
+        String outputFilePath = filepath2; // Replace with your output JSON file path
 
         try {
             String jsonString = readJSONStringFromFile(inputFilePath);
