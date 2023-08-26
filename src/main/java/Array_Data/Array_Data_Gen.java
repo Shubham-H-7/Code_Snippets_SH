@@ -117,7 +117,7 @@ public class Array_Data_Gen {
         int j;
         for (j = 0; j < i; j++) {
             String Id = Ids.get(j);
-            jsonObject.put("ID", Id);
+            jsonObject.put(idFileHeaderName, Id);
         }
         // Generate random age between 20 and 30 (inclusive)
         int age = generateRandomAge( ageStart, ageEnd);

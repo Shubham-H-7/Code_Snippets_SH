@@ -1,4 +1,5 @@
 package org.example;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -10,21 +11,21 @@ import java.util.Iterator;
 
 public class Convert_JSON_to_CSV {
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
 
-            // Replace "your_input_file.json" with the path to your JSON file
-            String jsonFilePath = "/Users/shubham/Downloads/filepath1.json";
+        // Replace "your_input_file.json" with the path to your JSON file
+        String jsonFilePath = "/Users/shubham/Downloads/data_hubspot.json";
 
-            // Replace "output.csv" with the desired path for the CSV output file
-            String csvOutputFilePath = "/Users/shubham/Documents/CSv_JSON/csv_json1.csv";
+        // Replace "output.csv" with the desired path for the CSV output file
+        String csvOutputFilePath = "/Users/shubham/Documents/CSv_JSON/csv_json1.csv";
 
-            try {
-                convertJsonToCsv(jsonFilePath, csvOutputFilePath);
-                System.out.println("JSON to CSV conversion successful.");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            convertJsonToCsv(jsonFilePath, csvOutputFilePath);
+            System.out.println("JSON to CSV conversion successful.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
     private static void convertJsonToCsv(String jsonFilePath, String csvOutputFilePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -41,6 +42,7 @@ public class Convert_JSON_to_CSV {
         // Process JSON and write to CSV
         writeJsonToCsv(root, csvOutputFile);
     }
+
     private static void writeCsvHeaders(JsonNode node, File csvOutputFile) throws IOException {
         StringBuilder csvLine = new StringBuilder();
         Iterator<String> fieldNames = node.fieldNames();
@@ -95,6 +97,7 @@ public class Convert_JSON_to_CSV {
             csvLine.append("\n");
             FileUtils.writeStringToFile(csvOutputFile, csvLine.toString(), "UTF-8", true);
         }
-    }}
+    }
+}
 
 
